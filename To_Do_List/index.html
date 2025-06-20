@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>To-Do List</title>
+  </head>
+  <body>
+    <h2>My To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task..." />
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+
+    <script src="script.js"></script>
+    <style>
+      .done {
+        text-decoration: line-through;
+        color: gray;
+        opacity: 0.6;
+      }
+      button {
+        cursor: pointer;
+        font-size: 0.8rem;
+        padding: 2px 6px;
+      }
+    </style>
+  </body>
+</html>
