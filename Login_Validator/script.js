@@ -1,5 +1,7 @@
 const form = document.getElementById('loginForm');
 const submit = document.getElementById('submit');
+const loader = document.getElementById('loader');
+const flash = document.getElementById('flashMsg');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const emailError = document.getElementById('emailError');
@@ -60,16 +62,28 @@ submit.addEventListener('mouseover', () => {
 form.addEventListener('submit', e => {
   e.preventDefault(); // Stop actual submit
 
-  // Reset messages
-  emailError.innerText = '';
-  passwordError.innerText = '';
-  statusMsg.innerText = '';
+  flash.style.opacity = 0;
+  loader.style.display = 'inline-block';
 
-  if (valid) {
-    statusMsg.innerText = '✅ Login successful!';
-    statusMsg.className = 'success';
-  } else {
-    statusMsg.innerText = '❌ Please fix the errors above.';
-    statusMsg.className = 'error';
-  }
+  setTimeout(() => {
+    loader.style.display = 'none';
+
+    // Reset messages
+    emailError.innerText = '';
+    passwordError.innerText = '';
+    statusMsg.innerText = '';
+
+    emailCheck();
+    passwordCheck();
+
+    if (!valid) {
+      flash.innerText = '❌ Invalid login details.';
+      flash.className = 'flash error';
+    } else {
+      flash.innerText = '✅ Logged in successfully!';
+      flash.className = 'flash success';
+    }
+
+    flash.style.opacity = 1;
+  }, 1500); // simulate loading
 });
