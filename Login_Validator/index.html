@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h2>Login Form</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" />
+      <p id="emailError" class="error"></p>
+
+      <input type="password" id="password" placeholder="Password" required />
+      <p id="passwordError" class="error"></p>
+
+      <button type="submit" id="submit" class="disabled">Login</button>
+      <p id="statusMsg"></p>
+    </form>
+
+    <script src="script.js"></script>
+  </body>
+</html>
