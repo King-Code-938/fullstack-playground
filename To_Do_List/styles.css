@@ -1,0 +1,22 @@
+.done {
+  text-decoration: line-through;
+  color: gray;
+  opacity: 0.6;
+}
+
+button {
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 2px 6px;
+  border: #214c00 1px;
+  color: #f4f4f4;
+  background-color: #439a00;
+  box-shadow: #245200 0px 0px 5px;
+  border-radius: 25%;
+  height: 30px;
+  width: 80px;
+}
+
+li {
+  margin: 5px;
+}
