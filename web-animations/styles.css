@@ -1,0 +1,23 @@
+.box {
+  width: 100px;
+  height: 100px;
+  background: crimson;
+  margin: 2rem auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.box:hover {
+  transform: scale(1.2) rotate(5deg);
+  background: #663399;
+  box-shadow: #6b00d7 0px 0px 5px;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+.bouncer {
+  animation: bounce 1s infinite;
+}
