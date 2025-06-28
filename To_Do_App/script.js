@@ -1,66 +1,71 @@
-const taskInput = document.getElementById('taskInput');
-const taskList = document.getElementById('taskList');
-let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+const taskForm = document.getElementById('task-form');
+const taskInput = document.getElementById('task-input');
+const taskList = document.getElementById('task-list');
+const toggleBtn = document.getElementById('toggle-theme');
+const addBtn = taskForm.querySelector('button');
 
-function init() {
-  renderTasks();
-}
+// 🧠 Load tasks
+document.addEventListener('DOMContentLoaded', loadTasks);
 
-function createTaskElement(taskObj, index) {
+// 💡 Enable button only when valid
+taskInput.addEventListener('input', () => {
+  addBtn.disabled = !taskInput.value.trim();
+});
+
+// 📌 Add task
+taskForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const text = taskInput.value.trim();
+  if (text) {
+    addTask(text);
+    saveTasks();
+    taskInput.value = '';
+    addBtn.disabled = true;
+  }
+});
+
+function addTask(text, completed = false) {
   const li = document.createElement('li');
-  li.textContent = taskObj.text;
-
-  if (taskObj.done) li.classList.add('done');
-  li.addEventListener('click', () => toggleTask(index));
-
-  const delBtn = document.createElement('button');
-  delBtn.textContent = '❌';
-  delBtn.style.marginLeft = '10px';
-  delBtn.addEventListener('click', () => deleteTask(index));
-
-  li.appendChild(delBtn);
-  return li;
+  li.innerHTML = `
+    <span class="${completed ? 'completed' : ''}">${text}</span>
+    <button class="delete">❌</button>
+  `;
+  if (completed) li.classList.add('done');
+  taskList.appendChild(li);
 }
 
-function addTask() {
-  const task = taskInput.value.trim();
-  if (!task) return;
+// ✅ Mark as complete or delete
+taskList.addEventListener('click', e => {
+  const li = e.target.closest('li');
+  if (!li) return;
 
-  tasks.push({ text: task, done: false });
-  taskInput.value = '';
-  updateApp();
-}
-
-function toggleTask(index) {
-  tasks[index].done = !tasks[index].done;
-  updateApp();
-}
-
-function deleteTask(index) {
-  tasks.splice(index, 1);
-  updateApp();
-}
-
-function updateApp() {
+  if (e.target.classList.contains('delete')) {
+    li.remove();
+  } else if (e.target.tagName === 'SPAN') {
+    e.target.classList.toggle('completed');
+  }
   saveTasks();
-  renderTasks();
-}
+});
 
+// 💾 Save to localStorage
 function saveTasks() {
+  const tasks = [];
+  taskList.querySelectorAll('li').forEach(li => {
+    tasks.push({
+      text: li.querySelector('span').textContent,
+      completed: li.querySelector('span').classList.contains('completed'),
+    });
+  });
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-function renderTasks() {
-  taskList.innerHTML = '';
-  tasks.forEach((task, i) => {
-    const taskEl = createTaskElement(task, i);
-    taskList.appendChild(taskEl);
-  });
+// 🚀 Load from localStorage
+function loadTasks() {
+  const saved = JSON.parse(localStorage.getItem('tasks') || '[]');
+  saved.forEach(t => addTask(t.text, t.completed));
 }
 
-init();
-taskInput.addEventListener('keyup', function (event) {
-  if (event.key == 'Enter') {
-    addTask();
-  }
+// 🌙 Toggle Theme
+toggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('light');
 });

@@ -5,11 +5,15 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <h2>My To-Do List</h2>
-    <input type="text" id="taskInput" placeholder="Enter a task..." />
-    <button onclick="addTask()">Add Task</button>
-    <ul id="taskList"></ul>
-
+    <div class="container">
+      <h1>Task Tracker Pro</h1>
+      <form id="task-form">
+        <input type="text" id="task-input" placeholder="Enter a task..." required />
+        <button type="submit" disabled>Add Task</button>
+      </form>
+      <ul id="task-list"></ul>
+      <button id="toggle-theme">Toggle Theme</button>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
