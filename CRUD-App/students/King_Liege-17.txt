@@ -1,0 +1,3 @@
+Name: King Liege
+Age: 17
+Course: Computer Science
