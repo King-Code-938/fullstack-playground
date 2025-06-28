@@ -1,0 +1,21 @@
+.grid-container {
+  display: grid;
+  gap: 1rem;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+}
+
+.box {
+  background-color: teal;
+  color: white;
+  font-size: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+}
